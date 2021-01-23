@@ -5,14 +5,16 @@ import numpy as np
 import array as arr
 import os
 
+path = '/home/jrmr/Bureau/pyMachinLearning/haarCascades_WorkForFun/'
+
 # fonction qui crée le fichier de description pour nos images négatives                
 def descripteur():
 
-    for fichier in os.listdir('/home/jrmr/Bureau/pyMachinLearning/Label') :
+    for fichier in os.listdir(path+'Label') :
         #print(str(fichier[:( len(str(fichier))- 4 ) ] ))
         name = str(fichier[:( len(str(fichier))- 4 ) ] )
 
-        with open('/home/jrmr/Bureau/pyMachinLearning/Label/'+str(fichier)) as f:
+        with open(path+'NewLabel/'+str(fichier)) as f:
             content = f.readlines()
             
             tab     = ''
@@ -39,21 +41,26 @@ def descripteur():
             #print('FILE '+str(item)+'\n')
             #print(tab)
 
-            with open('/home/jrmr/Bureau/pyMachinLearning/bg.txt','a') as g:
-                g.write('img1/'+ name +'.jpg'+' '+ str(item) + ' '+ tab2 + "\n")
+            with open(path+'info.txt','a') as g:
+                g.write('img_resize/'+ name +'.jpg'+' '+ str(item) + ' '+ tab2 + "\n")
 
         
 def resie():        
-    for fichier in os.listdir('/home/jrmr/Bureau/pyMachinLearning/img1') :
+    for fichier in os.listdir(path+'img1') :
         print(str(fichier))
         if (str(fichier) != 'nv') :
-            img = cv.imread('/home/jrmr/Bureau/pyMachinLearning/img1/'+str(fichier), cv.IMREAD_COLOR)
-            resized_image = cv.resize(img, (640,430))
-            cv.imwrite("/home/jrmr/Bureau/pyMachinLearning/img1/nv/"+str(fichier), resized_image)
+            img = cv.imread(path+'img1/'+str(fichier), cv.IMREAD_COLOR)
+            resized_image = cv.resize(img, (640,480), cv.INTER_AREA)
+            cv.imwrite(path+"img_resize/"+str(fichier), resized_image)
 
 
+def neg_descripteur():
+    for fichier in os.listdir(path+'neg') :
+        line = 'neg/'+fichier+'\n'
 
+        with open(path+'bg.txt','a') as f:
+            f.write(line)
 
+neg_descripteur()
 #descripteur()
-
-resie()
+#resie()
