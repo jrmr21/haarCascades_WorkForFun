@@ -42,15 +42,15 @@ def descripteur():
             #print(tab)
 
             with open(path+'info.txt','a') as g:
-                g.write('img_resize/'+ name +'.jpg'+' '+ str(item) + ' '+ tab2 + "\n")
+                g.write(name +'.jpg'+' '+ str(item) + ' '+ tab2 + "\n")
 
         
 def resie():        
     for fichier in os.listdir(path+'img1') :
         print(str(fichier))
         if (str(fichier) != 'nv') :
-            img = cv.imread(path+'img1/'+str(fichier), cv.IMREAD_COLOR)
-            resized_image = cv.resize(img, (640,480), cv.INTER_AREA)
+            img = cv.imread(path+'img1/'+str(fichier), 0)
+            resized_image = cv.resize(img, (640,480), 0)
             cv.imwrite(path+"img_resize/"+str(fichier), resized_image)
 
 
@@ -61,6 +61,6 @@ def neg_descripteur():
         with open(path+'bg.txt','a') as f:
             f.write(line)
 
-neg_descripteur()
+#neg_descripteur()
 #descripteur()
-#resie()
+resie()
